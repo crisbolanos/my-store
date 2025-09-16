@@ -31,7 +31,8 @@ app.use(boomErrorHandler);
 app.use(logErrors);
 app.use(errorHandler);
 
-module.exports = app;
-module.exports.handler = serverless(app);
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});
 
 
