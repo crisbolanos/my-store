@@ -20,7 +20,8 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-app.get('/api', (req, res) => {
+// Health check
+app.get('/', (req, res) => {
   res.send('Hello mi server en express');
 });
 
@@ -30,9 +31,12 @@ app.use(boomErrorHandler);
 app.use(logErrors);
 app.use(errorHandler);
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+// Only start the server in local development
+if (require.main === module) {
+  app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`);
+  });
+}
 
-
-
+// Export the app for Vercel serverless
+module.exports = app;
