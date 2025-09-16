@@ -1,11 +1,11 @@
 const express = require('express');
 const app = express();
+const port = process.env.PORT || 3000;
 
 const routerApi = require('./routes');
 const cors = require('cors');
 const { logErrors, errorHandler, boomErrorHandler } = require('./middlewares/error.handler');
 
-const port = process.env.PORT || 3000;
 
 app.use(express.json());
 const whitelist = ['http://127.0.0.1:5500', 'https://myapp.com'];
