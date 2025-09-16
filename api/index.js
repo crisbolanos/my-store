@@ -1,15 +1,17 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+
 const routerApi = require('./routes');
 const cors = require('cors');
 const { logErrors, errorHandler, boomErrorHandler } = require('./middlewares/error.handler');
+
+const port = process.env.PORT || 3000;
 
 app.use(express.json());
 const whitelist = ['http://127.0.0.1:5500', 'https://myapp.com'];
 const corsOptions = {
   origin: (origin, callback) => {
-    if (whitelist.includes(origin)) {
+    if (whitelist.includes(origin) || !origin) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
@@ -18,7 +20,7 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   res.send('Hello mi server en express');
 });
 
